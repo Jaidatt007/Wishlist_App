@@ -11,17 +11,38 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.NavController
+import com.example.wishlistapplication.routes.Routes
 import com.example.wishlistapplication.units.Drawer_content
 import com.example.wishlistapplication.units.Top_app_bar
+import com.example.wishlistapplication.viewmodel.AuthState
+import com.example.wishlistapplication.viewmodel.firebase_auth_viewmodel
 
 @Composable
-fun Home_screen(modifier: Modifier) {
+fun Home_screen(modifier: Modifier,
+                navController: NavController,
+                authViewModel: firebase_auth_viewmodel) {
 
     val drawerState = remember { mutableStateOf(false) }
+
+    val authState = authViewModel.authState.observeAsState()
+
+    LaunchedEffect(authState.value) {
+        when(authState.value){
+            is AuthState.UnAuthenticated -> {
+                navController.navigate(Routes.loginScreen)
+            }else -> {
+            Unit
+        }
+        }
+    }
 
     // Main screen content
     Scaffold(
@@ -58,7 +79,9 @@ fun Home_screen(modifier: Modifier) {
             targetOffsetX = { fullWidth -> -fullWidth } // Slide out to the left
         )
     ) {
-        Drawer_content(modifier = modifier)
+        Drawer_content(modifier = modifier,
+            navController = navController,
+            authViewModel = authViewModel)
     }
 
 }

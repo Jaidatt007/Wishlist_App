@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun Top_app_bar(onAccountIconClick : () -> Unit){
     Box(modifier = Modifier.fillMaxWidth().background(Color.LightGray)
-        .fillMaxHeight(0.07f),
+        .fillMaxHeight(0.077f),
         contentAlignment = Alignment.Center) {
 
         val context = LocalContext.current
