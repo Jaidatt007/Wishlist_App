@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,11 +19,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
+import com.example.wishlistapplication.resources.DummyData
 import com.example.wishlistapplication.routes.Routes
 import com.example.wishlistapplication.units.Drawer_content
+import com.example.wishlistapplication.units.Floating_Action_Button
 import com.example.wishlistapplication.units.Top_app_bar
+import com.example.wishlistapplication.units.WishItem
 import com.example.wishlistapplication.viewmodel.AuthState
 import com.example.wishlistapplication.viewmodel.firebase_auth_viewmodel
 
@@ -57,13 +61,18 @@ fun Home_screen(modifier: Modifier,
                     drawerState.value = true
                 }
             )
+        },
+        floatingActionButton = {
+            Floating_Action_Button()
         }
     ) {
         Column(modifier = Modifier.padding(it)) {
             // Screen content
-            Text("1")
-            Text("2")
-            Text("3")
+            LazyColumn {
+                items(DummyData.wishList){ wish->
+                    WishItem(wish = wish, onClick = {})
+                }
+            }
         }
 
     }

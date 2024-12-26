@@ -34,7 +34,7 @@ fun Top_app_bar(onAccountIconClick : () -> Unit){
         Row(modifier = Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp)) {
             Icon(imageVector = Icons.Default.AccountBox, contentDescription = "Account Icon",
                 modifier = Modifier.scale(1.4f).clickable{
-                    Toast.makeText(context,"This is Account Icon !",Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(context,"This is Account Icon !",Toast.LENGTH_SHORT).show()
                     onAccountIconClick()
                 }
             )

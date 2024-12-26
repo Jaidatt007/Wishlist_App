@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.google.gms.google.services)
+    id("kotlin-kapt")
 }
 
 android {
@@ -47,6 +48,14 @@ dependencies {
 
     //visibility icon
     implementation(libs.androidx.material.icons.extended)
+
+
+    // Room Db
+    implementation(libs.androidx.room.runtime)
+    kapt(libs.androidx.room.compiler) // For Kotlin projects
+
+    // Optional: Room with Coroutines
+    implementation(libs.androidx.room.ktx)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
