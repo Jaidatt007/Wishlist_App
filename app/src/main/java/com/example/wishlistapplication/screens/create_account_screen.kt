@@ -1,6 +1,7 @@
 package com.example.wishlistapplication.screens
 
 import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -34,6 +35,7 @@ import com.example.wishlistapplication.R
 import com.example.wishlistapplication.routes.Routes
 import com.example.wishlistapplication.viewmodel.AuthState
 import com.example.wishlistapplication.viewmodel.firebase_auth_viewmodel
+import kotlinx.coroutines.delay
 
 
 @Composable
@@ -49,6 +51,8 @@ fun SignUpScreen(modifier: Modifier,
 
     val authState = authViewModel.authState.observeAsState()
 
+    var backPressedOnce by remember{ mutableStateOf(false) }
+
     LaunchedEffect(authState.value) {
         when(authState.value) {
             is AuthState.Authenticated -> {
@@ -58,6 +62,25 @@ fun SignUpScreen(modifier: Modifier,
         } else -> {
             Unit
         }
+        }
+    }
+
+    BackHandler {
+        if (backPressedOnce) {
+            // Close the app
+            (context as? android.app.Activity)?.finish()
+        } else {
+            backPressedOnce = true
+            // Show a toast message
+            Toast.makeText(context, "Press back again to exit", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    // Reset backPressedOnce after 2 seconds
+    if (backPressedOnce) {
+        LaunchedEffect(backPressedOnce) {
+            delay(2000)
+            backPressedOnce = false
         }
     }
 

@@ -8,8 +8,8 @@ class WishRepository(
     suspend fun addAWish(wish : wishlist_table_entity){
         wishDao.addWish(wishEntity = wish)
     }
-    suspend fun deleteAWish(wish : wishlist_table_entity){
-        wishDao.deleteWish(wishEntity = wish)
+    suspend fun deleteAWish(wishId : Long){
+        wishDao.deleteWish(wishId = wishId)
     }
     suspend fun updateAWish(wish : wishlist_table_entity){
         wishDao.updateWish(wishEntity = wish)

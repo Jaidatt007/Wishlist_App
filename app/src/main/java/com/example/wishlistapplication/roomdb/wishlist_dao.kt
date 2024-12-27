@@ -14,8 +14,8 @@ abstract class WishDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     abstract fun addWish(wishEntity:wishlist_table_entity)
 
-    @Delete
-    abstract fun deleteWish(wishEntity: wishlist_table_entity)
+    @Query("DELETE FROM `Wishlist_Table` WHERE ID = :wishId")
+    abstract fun deleteWish(wishId : Long)
 
     @Update
     abstract fun updateWish(wishEntity:wishlist_table_entity)

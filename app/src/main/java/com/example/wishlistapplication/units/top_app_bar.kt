@@ -18,13 +18,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun Top_app_bar(onAccountIconClick : () -> Unit){
+fun Top_app_bar(title : String,
+                icon : ImageVector,
+                onIconClick : () -> Unit){
     Box(modifier = Modifier.fillMaxWidth().background(Color.LightGray)
         .fillMaxHeight(0.077f),
         contentAlignment = Alignment.Center) {
@@ -32,17 +35,17 @@ fun Top_app_bar(onAccountIconClick : () -> Unit){
         val context = LocalContext.current
 
         Row(modifier = Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp)) {
-            Icon(imageVector = Icons.Default.AccountBox, contentDescription = "Account Icon",
+            Icon(imageVector = icon, contentDescription = "Account Icon",
                 modifier = Modifier.scale(1.4f).clickable{
 //                    Toast.makeText(context,"This is Account Icon !",Toast.LENGTH_SHORT).show()
-                    onAccountIconClick()
+                    onIconClick()
                 }
             )
         }
 
         Row(modifier = Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp),
             horizontalArrangement = Arrangement.Center) {
-            Text(text = "Wishlist App", fontSize = 32.sp , fontFamily = FontFamily.Cursive,
+            Text(text = title , fontSize = 32.sp , fontFamily = FontFamily.Cursive,
                 modifier = Modifier.clickable {
                     Toast.makeText(context,"This is Wishlist App !",Toast.LENGTH_SHORT).show()
                 }

@@ -38,7 +38,7 @@ fun WishItem(wish : wishlist_table_entity,
              onClick : () -> Unit ){
     Card(modifier = Modifier
         .fillMaxWidth()
-        .padding(start = 12.dp, top = 12.dp, end = 12.dp)
+        .padding(top = 12.dp)
         .clickable {
             onClick()
         },elevation = CardDefaults.cardElevation(2.dp)) {
@@ -53,7 +53,7 @@ fun WishItem(wish : wishlist_table_entity,
                 onCheckedChange = {
                     check_box_state = !check_box_state
                     val text = if(check_box_state) "is Completed" else "is Pending"
-                    Toast.makeText(context,"${wish.title} $text !",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context,"${wish.title} $text !", Toast.LENGTH_SHORT).show()
                 },
             )
             VerticalDivider(modifier = Modifier.height(32.dp),

@@ -6,14 +6,17 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.wishlistapplication.routes.Routes
-import com.example.wishlistapplication.screens.Home_screen
+import com.example.wishlistapplication.screens.AddEditDetailsScreen
+import com.example.wishlistapplication.screens.HomeScreen
 import com.example.wishlistapplication.screens.LoginScreen
 import com.example.wishlistapplication.screens.SignUpScreen
+import com.example.wishlistapplication.viewmodel.WishViewModel
 import com.example.wishlistapplication.viewmodel.firebase_auth_viewmodel
 
 @Composable
 fun AuthScreensNavigation(modifier: Modifier,
-                          authViewModel : firebase_auth_viewmodel
+                          authViewModel : firebase_auth_viewmodel,
+                          wishViewModel: WishViewModel
 ){
 
     val navController = rememberNavController()
@@ -30,9 +33,15 @@ fun AuthScreensNavigation(modifier: Modifier,
                 authViewModel = authViewModel)
         }
         composable(Routes.homeScreen){
-            Home_screen(modifier = modifier,
+            HomeScreen(modifier = modifier,
                 navController = navController,
-                authViewModel = authViewModel)
+                authViewModel = authViewModel,
+                wishViewModel = wishViewModel)
+        }
+        composable(Routes.addeditScreen){
+            AddEditDetailsScreen(modifier = modifier,
+                navController = navController,
+                wishViewModel = wishViewModel)
         }
 
     }

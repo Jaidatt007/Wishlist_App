@@ -38,9 +38,9 @@ class WishViewModel(private val wishRepository: WishRepository = wishlist_graph.
             wishRepository.addAWish(wish = wish)
         }
     }
-    fun deleteAWish(wish:wishlist_table_entity){
+    fun deleteAWish(wishId:Long){
         viewModelScope.launch(Dispatchers.IO) {
-            wishRepository.deleteAWish(wish)
+            wishRepository.deleteAWish(wishId = wishId)
         }
     }
     fun updateAWish(wish: wishlist_table_entity) {

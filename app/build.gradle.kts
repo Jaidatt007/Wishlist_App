@@ -49,6 +49,9 @@ dependencies {
     //visibility icon
     implementation(libs.androidx.material.icons.extended)
 
+    //swipe
+    implementation(libs.androidx.foundation)
+
 
     // Room Db
     implementation(libs.androidx.room.runtime)

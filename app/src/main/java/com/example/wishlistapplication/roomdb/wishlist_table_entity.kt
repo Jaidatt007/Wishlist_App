@@ -17,6 +17,6 @@ data class wishlist_table_entity(
     @ColumnInfo(name = "Wish_Description")
     val description : String,
 
-    @ColumnInfo(name = "Wish_Created+Time")
+    @ColumnInfo(name = "Wish_Created_Time")
     val time : String,
 )

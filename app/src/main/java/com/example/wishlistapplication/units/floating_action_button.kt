@@ -8,13 +8,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.wishlistapplication.R
+import com.example.wishlistapplication.routes.Routes
+import com.example.wishlistapplication.viewmodel.firebase_auth_viewmodel
 
 @Composable
-fun Floating_Action_Button(){
+fun Floating_Action_Button(modifier: Modifier,
+                           navController: NavController,
+                           authViewModel: firebase_auth_viewmodel
+){
     FloatingActionButton(modifier = Modifier.padding(end = 20.dp),
         onClick = {
-
+            navController.navigate(Routes.addeditScreen)
         },
         elevation = FloatingActionButtonDefaults.elevation(4.dp)) {
         Icon(painter = painterResource(R.drawable.baseline_add_24),"Add Wish floating action button")
