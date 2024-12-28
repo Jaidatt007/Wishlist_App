@@ -20,7 +20,7 @@ fun Floating_Action_Button(modifier: Modifier,
 ){
     FloatingActionButton(modifier = Modifier.padding(bottom = 16.dp, end = 8.dp),
         onClick = {
-            navController.navigate(Routes.addeditScreen + "/0L")
+            navController.navigate(Routes.addEditScreen + "/0L")
         },
         elevation = FloatingActionButtonDefaults.elevation(4.dp)) {
         Icon(painter = painterResource(R.drawable.baseline_add_24),"Add Wish floating action button")

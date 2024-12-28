@@ -4,5 +4,7 @@ object Routes {
     val loginScreen = "LoginScreen"
     val signUpScreen = "SignUpScreen"
     val homeScreen = "HomeScreen"
-    val addeditScreen = "AddEditScreen"
+    val addEditScreen = "AddEditScreen"
+
+    val getUserDetails = "GetUserDetailsScreen"
 }

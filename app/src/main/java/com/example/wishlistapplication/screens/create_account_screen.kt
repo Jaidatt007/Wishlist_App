@@ -35,13 +35,15 @@ import com.example.wishlistapplication.R
 import com.example.wishlistapplication.routes.Routes
 import com.example.wishlistapplication.viewmodel.AuthState
 import com.example.wishlistapplication.viewmodel.firebase_auth_viewmodel
+import com.example.wishlistapplication.viewmodel.user_details_viewmodel
 import kotlinx.coroutines.delay
 
 
 @Composable
 fun SignUpScreen(modifier: Modifier,
                  navController: NavController,
-                 authViewModel : firebase_auth_viewmodel
+                 authViewModel : firebase_auth_viewmodel,
+                 userDetailsViewmodel: user_details_viewmodel
 ) {
 
     var email by remember { mutableStateOf("") }
@@ -56,6 +58,8 @@ fun SignUpScreen(modifier: Modifier,
     LaunchedEffect(authState.value) {
         when(authState.value) {
             is AuthState.Authenticated -> {
+                userDetailsViewmodel.setUserEmail(email)
+                userDetailsViewmodel.setUserPassword(password)
                 navController.navigate(Routes.homeScreen)
             } is AuthState.Error -> {
             Toast.makeText(context, (authState.value as AuthState.Error).message, Toast.LENGTH_SHORT).show()

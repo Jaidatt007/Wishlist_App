@@ -9,12 +9,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
-import com.example.wishlistapplication.navigation.AuthScreensNavigation
-import com.example.wishlistapplication.screens.AddEditDetailsScreen
+import com.example.wishlistapplication.navigation.ScreensNavigations
 import com.example.wishlistapplication.ui.theme.WishlistApplicationTheme
 import com.example.wishlistapplication.viewmodel.WishViewModel
 import com.example.wishlistapplication.viewmodel.firebase_auth_viewmodel
+import com.example.wishlistapplication.viewmodel.user_details_viewmodel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,12 +21,14 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         val authViewModel : firebase_auth_viewmodel by viewModels()
         val wishlistViewModel : WishViewModel by viewModels()
+        val userDetailsViewModel : user_details_viewmodel by viewModels()
         setContent {
             WishlistApplicationTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    AuthScreensNavigation(modifier = Modifier.padding(innerPadding),
+                    ScreensNavigations(modifier = Modifier.padding(innerPadding),
                         authViewModel = authViewModel,
-                        wishViewModel = wishlistViewModel)
+                        wishViewModel = wishlistViewModel,
+                        userDetailsViewmodel = userDetailsViewModel)
                 }
             }
         }

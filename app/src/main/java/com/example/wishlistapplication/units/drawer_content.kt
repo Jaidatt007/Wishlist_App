@@ -33,12 +33,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.wishlistapplication.R
+import com.example.wishlistapplication.routes.Routes
 import com.example.wishlistapplication.viewmodel.firebase_auth_viewmodel
+import com.example.wishlistapplication.viewmodel.user_details_viewmodel
 
 @Composable
 fun Drawer_content(modifier: Modifier,
                    navController: NavController,
-                   authViewModel: firebase_auth_viewmodel
+                   authViewModel: firebase_auth_viewmodel,
+                   userDetailsViewmodel: user_details_viewmodel
 ){
 
     val context = LocalContext.current
@@ -79,7 +82,7 @@ fun Drawer_content(modifier: Modifier,
                     R.drawable.baseline_person_24,
                     "Profile Icon",
                     onDrawer_Item_Clicked = {
-
+                        navController.navigate(Routes.getUserDetails)
                     })
                 Drawer_card(
                     "Theme",

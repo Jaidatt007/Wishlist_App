@@ -39,13 +39,15 @@ import com.example.wishlistapplication.units.WishItem
 import com.example.wishlistapplication.viewmodel.AuthState
 import com.example.wishlistapplication.viewmodel.WishViewModel
 import com.example.wishlistapplication.viewmodel.firebase_auth_viewmodel
+import com.example.wishlistapplication.viewmodel.user_details_viewmodel
 import kotlinx.coroutines.delay
 
 @Composable
 fun HomeScreen(modifier: Modifier,
                navController: NavController,
                authViewModel: firebase_auth_viewmodel,
-               wishViewModel: WishViewModel
+               wishViewModel: WishViewModel,
+               userDetailsViewmodel: user_details_viewmodel
 ) {
 
     val drawerState = remember { mutableStateOf(false) }
@@ -124,7 +126,7 @@ fun HomeScreen(modifier: Modifier,
                     ) {
                         WishItem(wish = wish, onClick = {
                             val id = wish.id
-                            navController.navigate(Routes.addeditScreen + "/${id}")
+                            navController.navigate(Routes.addEditScreen + "/${id}")
                         })
                     }
                 }
@@ -146,7 +148,8 @@ fun HomeScreen(modifier: Modifier,
     ) {
         Drawer_content(modifier = modifier,
             navController = navController,
-            authViewModel = authViewModel)
+            authViewModel = authViewModel,
+            userDetailsViewmodel = userDetailsViewmodel)
     }
 
 }
