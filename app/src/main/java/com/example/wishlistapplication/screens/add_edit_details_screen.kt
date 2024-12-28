@@ -18,6 +18,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,7 +36,8 @@ import com.example.wishlistapplication.units.Top_app_bar
 import com.example.wishlistapplication.viewmodel.WishViewModel
 
 @Composable
-fun AddEditDetailsScreen(modifier: Modifier,
+fun AddEditDetailsScreen(id:Long,
+                         modifier: Modifier,
                          navController: NavController,
                          wishViewModel: WishViewModel
 ){
@@ -45,9 +47,22 @@ fun AddEditDetailsScreen(modifier: Modifier,
 
     val context = LocalContext.current
 
+    var operationState by remember { mutableStateOf("") }
+
+    operationState = if (id != 0L) "Edit" else "Add"
+
+    if (operationState == "Edit"){
+        val wish = wishViewModel.getAWishById(id).collectAsState(initial = wishlist_table_entity(0L,"","",""))
+        title = wish.value.title
+        description = wish.value.description
+    }else{
+        title = ""
+        description = ""
+    }
+
     Scaffold(modifier = modifier,
         topBar = {
-            Top_app_bar(title = "Add/Edit Details",
+            Top_app_bar(title = if(operationState == "Edit") "Edit Wish" else "Add Wish",
                 icon = Icons.Default.ArrowBack,
                 onIconClick = {
                     navController.navigateUp()
@@ -85,11 +100,19 @@ fun AddEditDetailsScreen(modifier: Modifier,
                         modifier = Modifier.size(24.dp))
                 }
                 Button(onClick = {
-                    wishViewModel.addAWish(wish = wishlist_table_entity(title = title, description = description, time = getCurrentDateTime()))
-                    navController.navigateUp()
-                    Toast.makeText(context,"New Wish Added !",Toast.LENGTH_SHORT).show()
+                    if(title.isNotEmpty()){
+                        if(operationState == "Add"){
+                            wishViewModel.addAWish(wish = wishlist_table_entity(title = title, description = description, time = getCurrentDateTime()))
+                        } else {
+                            wishViewModel.updateAWish(wishlist_table_entity(id = id, title = title, description = description, time = getCurrentDateTime()))
+                        }
+                        navController.navigateUp()
+                        Toast.makeText(context,if(operationState == "Edit") "Wish Updated !" else "Wish Added !",Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(context,"Title cannot be empty !",Toast.LENGTH_SHORT).show()
+                    }
                 }) {
-                    Text(text = "Add/Edit", fontSize = 16.sp, modifier = Modifier.padding(4.dp))
+                    Text(text = if(operationState == "Edit") "Edit Wish" else "Add Wish" , fontSize = 16.sp, modifier = Modifier.padding(4.dp))
                     Icon(painter = painterResource(R.drawable.baseline_edit_24),"Add/Edit data",
                         modifier = Modifier.size(22.dp))
                 }

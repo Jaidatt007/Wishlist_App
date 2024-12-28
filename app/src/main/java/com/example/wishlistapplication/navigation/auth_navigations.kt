@@ -2,9 +2,11 @@ package com.example.wishlistapplication.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.wishlistapplication.routes.Routes
 import com.example.wishlistapplication.screens.AddEditDetailsScreen
 import com.example.wishlistapplication.screens.HomeScreen
@@ -38,8 +40,14 @@ fun AuthScreensNavigation(modifier: Modifier,
                 authViewModel = authViewModel,
                 wishViewModel = wishViewModel)
         }
-        composable(Routes.addeditScreen){
-            AddEditDetailsScreen(modifier = modifier,
+        composable(Routes.addeditScreen + "/{id}",
+            arguments = listOf(navArgument("id"){
+                type = NavType.LongType
+                defaultValue = 0L
+                nullable = false })) {
+            val id = if(it.arguments != null) it.arguments!!.getLong("id") else 0L
+            AddEditDetailsScreen(id = id,
+                modifier = modifier,
                 navController = navController,
                 wishViewModel = wishViewModel)
         }

@@ -9,14 +9,14 @@ import androidx.room.PrimaryKey
 data class wishlist_table_entity(
 
     @PrimaryKey(autoGenerate = true)
-    val id : Long = 0L,
+    var id : Long = 0L,
 
     @ColumnInfo(name = "Wish_Title")
-    val title : String,
+    var title : String,
 
     @ColumnInfo(name = "Wish_Description")
-    val description : String,
+    var description : String,
 
     @ColumnInfo(name = "Wish_Created_Time")
-    val time : String,
+    var time : String,
 )

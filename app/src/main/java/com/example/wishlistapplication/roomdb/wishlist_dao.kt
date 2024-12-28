@@ -17,8 +17,10 @@ abstract class WishDao {
     @Query("DELETE FROM `Wishlist_Table` WHERE ID = :wishId")
     abstract fun deleteWish(wishId : Long)
 
+//    @Query("Update `Wishlist_Table` SET Wish_Title = :title, Wish_Description = :description, Wish_Created_Time = :time WHERE ID = :id")
+//    abstract fun updateWish(id: Long, title: String, description: String, time: String)
     @Update
-    abstract fun updateWish(wishEntity:wishlist_table_entity)
+    abstract fun updateWish(wishEntity: wishlist_table_entity)
 
     @Query("SELECT * FROM `Wishlist_Table`")
     abstract fun getAllWishes() : Flow<List<wishlist_table_entity>>

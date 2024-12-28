@@ -14,16 +14,6 @@ import kotlinx.coroutines.launch
 
 class WishViewModel(private val wishRepository: WishRepository = wishlist_graph.wishRepository ) : ViewModel() {
 
-    var  wishTitleState by mutableStateOf(value = "")
-    var  wishDescriptionState by mutableStateOf("")
-
-    fun onWishTitleChanged(newWishTitle : String){
-        wishTitleState = newWishTitle
-    }
-    fun onWishDescriptionChanged(newWishDescription : String){
-        wishDescriptionState = newWishDescription
-    }
-
     lateinit var getAllWishes : Flow<List<wishlist_table_entity>>
     init {
         viewModelScope.launch {

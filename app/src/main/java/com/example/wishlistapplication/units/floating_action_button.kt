@@ -18,9 +18,9 @@ fun Floating_Action_Button(modifier: Modifier,
                            navController: NavController,
                            authViewModel: firebase_auth_viewmodel
 ){
-    FloatingActionButton(modifier = Modifier.padding(end = 20.dp),
+    FloatingActionButton(modifier = Modifier.padding(bottom = 16.dp, end = 8.dp),
         onClick = {
-            navController.navigate(Routes.addeditScreen)
+            navController.navigate(Routes.addeditScreen + "/0L")
         },
         elevation = FloatingActionButtonDefaults.elevation(4.dp)) {
         Icon(painter = painterResource(R.drawable.baseline_add_24),"Add Wish floating action button")

@@ -122,7 +122,10 @@ fun HomeScreen(modifier: Modifier,
                         },
                         animationDuration = 500
                     ) {
-                        WishItem(wish = wish, onClick = {})
+                        WishItem(wish = wish, onClick = {
+                            val id = wish.id
+                            navController.navigate(Routes.addeditScreen + "/${id}")
+                        })
                     }
                 }
             }
