@@ -30,6 +30,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.wishlistapplication.resources.UserTokenManager
 import com.example.wishlistapplication.routes.Routes
 import com.example.wishlistapplication.units.Drawer_content
 import com.example.wishlistapplication.units.Floating_Action_Button
@@ -58,14 +59,15 @@ fun HomeScreen(modifier: Modifier,
 
     var backPressedOnce by remember{ mutableStateOf(false) }
 
-    val wishList = wishViewModel.getAllWishes.collectAsState(initial = listOf())
+    val wishList = wishViewModel.getAllWishes().collectAsState(initial = listOf())
 
     LaunchedEffect(authState.value) {
         when(authState.value){
             is AuthState.UnAuthenticated -> {
                 navController.navigate(Routes.loginScreen)
             }else -> {
-            Unit
+                UserTokenManager.userToken = authViewModel.userToken.value
+                Unit
             }
         }
     }
@@ -95,6 +97,7 @@ fun HomeScreen(modifier: Modifier,
         modifier = modifier.then(Modifier.pointerInput(Unit) {
             detectTapGestures {
                 drawerState.value = false
+                Toast.makeText(context,"${UserTokenManager.userToken}",Toast.LENGTH_SHORT).show()
             }
         }),
         topBar = {

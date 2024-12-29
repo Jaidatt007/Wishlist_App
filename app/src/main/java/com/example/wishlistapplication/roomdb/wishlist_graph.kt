@@ -10,7 +10,10 @@ object wishlist_graph {
         WishRepository(wishDao = database.wishDao())
     }
     fun provide(context: Context){
-        database = Room.databaseBuilder(context,WishDatabase::class.java,
-            name = "wishlist.db").build()
+        database = Room.databaseBuilder(context,
+            WishDatabase::class.java,
+            name = "wishlist.db")
+            .fallbackToDestructiveMigration()
+            .build()
     }
 }

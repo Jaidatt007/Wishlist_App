@@ -19,4 +19,7 @@ data class wishlist_table_entity(
 
     @ColumnInfo(name = "Wish_Created_Time")
     var time : String,
+
+    @ColumnInfo(name = "User_Token")
+    var userToken : String
 )

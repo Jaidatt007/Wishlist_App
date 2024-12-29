@@ -1,10 +1,8 @@
 package com.example.wishlistapplication.viewmodel
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.wishlistapplication.resources.UserTokenManager
 import com.example.wishlistapplication.roomdb.WishRepository
 import com.example.wishlistapplication.roomdb.wishlist_graph
 import com.example.wishlistapplication.roomdb.wishlist_table_entity
@@ -15,11 +13,18 @@ import kotlinx.coroutines.launch
 class WishViewModel(private val wishRepository: WishRepository = wishlist_graph.wishRepository ) : ViewModel() {
 
     lateinit var getAllWishes : Flow<List<wishlist_table_entity>>
+
     init {
         viewModelScope.launch {
-            getAllWishes = wishRepository.getAllWishes()
+            getAllWishes = wishRepository.getAllWishes(UserTokenManager.userToken.toString())
         }
     }
+
+
+    fun getAllWishes() : Flow<List<wishlist_table_entity>> {
+        return wishRepository.getAllWishes(UserTokenManager.userToken.toString())
+    }
+
     fun getAWishById(id:Long) : Flow<wishlist_table_entity> {
         return wishRepository.getAWishById(id)
     }

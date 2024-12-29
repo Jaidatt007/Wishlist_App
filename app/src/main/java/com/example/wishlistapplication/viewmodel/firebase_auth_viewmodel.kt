@@ -1,76 +1,89 @@
 package com.example.wishlistapplication.viewmodel
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.wishlistapplication.resources.UserTokenManager
 import com.google.firebase.auth.FirebaseAuth
 
-class firebase_auth_viewmodel :ViewModel() {
+class firebase_auth_viewmodel : ViewModel() {
 
-
-    private val auth  = FirebaseAuth.getInstance()
+    private val auth = FirebaseAuth.getInstance()
     private val _authState = MutableLiveData<AuthState>()
-    var authState : LiveData<AuthState> = _authState
+    var authState: LiveData<AuthState> = _authState
+
+    // Variable to hold the UID of the current user
+    private val _userToken = MutableLiveData<String?>()
+    val userToken: LiveData<String?> = _userToken
 
     init {
         checkAuthStatus()
     }
 
-    private fun checkAuthStatus(){
-        if(auth.currentUser == null){
+    private fun checkAuthStatus() {
+        val currentUser = auth.currentUser
+        if (currentUser == null) {
             _authState.value = AuthState.UnAuthenticated
-        }else{
+            _userToken.value = null
+        } else {
             _authState.value = AuthState.Authenticated
+            _userToken.value = currentUser.uid
+            UserTokenManager.userToken = _userToken.value.toString()
         }
     }
 
-    fun login(email : String, password : String){
-
-        if(email.isEmpty() || password.isEmpty()){
-            _authState.value = AuthState.Error("Email and Password cannot be empty !")
+    fun login(email: String, password: String) {
+        if (email.isEmpty() || password.isEmpty()) {
+            _authState.value = AuthState.Error("Email and Password cannot be empty!")
             return
         }
 
         _authState.value = AuthState.Loading
-        auth.signInWithEmailAndPassword(email,password)
-            .addOnCompleteListener { task->
-                if(task.isSuccessful){
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val currentUser = auth.currentUser
                     _authState.value = AuthState.Authenticated
-                }else{
-                    _authState.value = AuthState.Error(task.exception?.message ?: "Something went wrong !")
+                    _userToken.value = currentUser?.uid
+                } else {
+                    _authState.value = AuthState.Error(task.exception?.message ?: "Something went wrong!")
+                    _userToken.value = null
                 }
             }
     }
 
-    fun signup(email : String, password : String){
-
-        if(email.isEmpty() || password.isEmpty()){
-            _authState.value = AuthState.Error("Email and Password cannot be empty !")
+    fun signup(email: String, password: String) {
+        if (email.isEmpty() || password.isEmpty()) {
+            _authState.value = AuthState.Error("Email and Password cannot be empty!")
             return
         }
 
         _authState.value = AuthState.Loading
-        auth.createUserWithEmailAndPassword(email,password)
-            .addOnCompleteListener { task->
-                if(task.isSuccessful){
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val currentUser = auth.currentUser
                     _authState.value = AuthState.Authenticated
-                }else{
-                    _authState.value = AuthState.Error(task.exception?.message ?: "Something went wrong !")
+                    _userToken.value = currentUser?.uid
+                    Log.d("SignUp", "Successfully SignUp!")
+                } else {
+                    _authState.value = AuthState.Error(task.exception?.message ?: "Something went wrong!")
+                    _userToken.value = null
                 }
-                Log.d("SignUp", "Successfully SignUp !")
             }
     }
 
-    fun logout(){
+    fun logout() {
         auth.signOut()
         _authState.value = AuthState.UnAuthenticated
+        _userToken.value = null
+        UserTokenManager.userToken = null
 
-        Log.d("LogOut","Log Out Successfully !")
+        Log.d("LogOut", "Log Out Successfully!")
     }
-
 }
+
 
 sealed class AuthState{
     object Authenticated : AuthState()

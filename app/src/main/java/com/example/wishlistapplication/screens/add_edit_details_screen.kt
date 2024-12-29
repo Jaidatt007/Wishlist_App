@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.wishlistapplication.R
+import com.example.wishlistapplication.resources.UserTokenManager
 import com.example.wishlistapplication.resources.getCurrentDateTime
 import com.example.wishlistapplication.roomdb.wishlist_table_entity
 import com.example.wishlistapplication.units.Top_app_bar
@@ -52,7 +53,7 @@ fun AddEditDetailsScreen(id:Long,
     operationState = if (id != 0L) "Edit" else "Add"
 
     if (operationState == "Edit"){
-        val wish = wishViewModel.getAWishById(id).collectAsState(initial = wishlist_table_entity(0L,"","",""))
+        val wish = wishViewModel.getAWishById(id).collectAsState(initial = wishlist_table_entity(0L,"","","",""))
         title = wish.value.title
         description = wish.value.description
     }else{
@@ -102,9 +103,9 @@ fun AddEditDetailsScreen(id:Long,
                 Button(onClick = {
                     if(title.isNotEmpty()){
                         if(operationState == "Add"){
-                            wishViewModel.addAWish(wish = wishlist_table_entity(title = title, description = description, time = getCurrentDateTime()))
+                            wishViewModel.addAWish(wish = wishlist_table_entity(title = title, description = description, time = getCurrentDateTime(), userToken = UserTokenManager.userToken.toString()))
                         } else {
-                            wishViewModel.updateAWish(wishlist_table_entity(id = id, title = title, description = description, time = getCurrentDateTime()))
+                            wishViewModel.updateAWish(wishlist_table_entity(id = id, title = title, description = description, time = getCurrentDateTime(), userToken = UserTokenManager.userToken.toString()))
                         }
                         navController.navigateUp()
                         Toast.makeText(context,if(operationState == "Edit") "Wish Updated !" else "Wish Added !",Toast.LENGTH_SHORT).show()
