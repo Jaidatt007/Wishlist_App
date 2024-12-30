@@ -30,6 +30,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.wishlistapplication.resources.UserEmailManager
 import com.example.wishlistapplication.resources.UserTokenManager
 import com.example.wishlistapplication.routes.Routes
 import com.example.wishlistapplication.units.Drawer_content
@@ -67,7 +68,8 @@ fun HomeScreen(modifier: Modifier,
                 navController.navigate(Routes.loginScreen)
             }else -> {
                 UserTokenManager.userToken = authViewModel.userToken.value
-                Unit
+                UserEmailManager.userEmail = authViewModel.userEmail.value
+                authViewModel.explicitCheckAuthStatus()
             }
         }
     }
@@ -97,7 +99,7 @@ fun HomeScreen(modifier: Modifier,
         modifier = modifier.then(Modifier.pointerInput(Unit) {
             detectTapGestures {
                 drawerState.value = false
-                Toast.makeText(context,"${UserTokenManager.userToken}",Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "${UserEmailManager.userEmail.toString()}",Toast.LENGTH_SHORT).show()
             }
         }),
         topBar = {

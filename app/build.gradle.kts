@@ -52,13 +52,16 @@ dependencies {
     //swipe
     implementation(libs.androidx.foundation)
 
-
     // Room Db
     implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.appcompat)
     kapt(libs.androidx.room.compiler) // For Kotlin projects
 
     // Optional: Room with Coroutines
     implementation(libs.androidx.room.ktx)
+
+    // Shared Preferences Data Store
+    implementation(libs.androidx.datastore.preferences)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

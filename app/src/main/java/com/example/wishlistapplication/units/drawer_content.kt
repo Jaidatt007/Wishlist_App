@@ -21,6 +21,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,8 +35,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.wishlistapplication.R
 import com.example.wishlistapplication.routes.Routes
+import com.example.wishlistapplication.sharedpreferencesdatastore.saveUserPreferences
 import com.example.wishlistapplication.viewmodel.firebase_auth_viewmodel
 import com.example.wishlistapplication.viewmodel.user_details_viewmodel
+import kotlinx.coroutines.launch
 
 @Composable
 fun Drawer_content(modifier: Modifier,
@@ -46,6 +49,7 @@ fun Drawer_content(modifier: Modifier,
 
     val context = LocalContext.current
 
+    val scope = rememberCoroutineScope()
 
     Surface(modifier = modifier.then(Modifier.fillMaxHeight()
         .fillMaxWidth(0.7f)
@@ -70,7 +74,8 @@ fun Drawer_content(modifier: Modifier,
                         Text(text = "Welcome,", fontSize = 16.sp)
                         Row {
                             Text(
-                                text = "Jaidatt", fontSize = 20.sp, fontWeight = FontWeight.Bold,
+                                text = if(userDetailsViewmodel.userName.value == null) "No Name" else userDetailsViewmodel.userName.value.toString(),
+                                fontSize = 20.sp, fontWeight = FontWeight.Bold,
                                 modifier = Modifier.padding(start = 32.dp)
                             )
                             Text(text = ".......", fontSize = 20.sp)
@@ -132,6 +137,14 @@ fun Drawer_content(modifier: Modifier,
                 Button(modifier = Modifier.align(Alignment.CenterHorizontally).padding(8.dp),
                     onClick = {
                         authViewModel.logout()
+                        scope.launch {
+                            saveUserPreferences(
+                                context = context,
+                                name = "",
+                                contact = "",
+                                description = ""
+                            )
+                        }
                         Toast.makeText(context, "Log Out", Toast.LENGTH_SHORT).show()
                     }) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
