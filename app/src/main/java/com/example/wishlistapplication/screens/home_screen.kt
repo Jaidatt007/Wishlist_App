@@ -99,7 +99,7 @@ fun HomeScreen(modifier: Modifier,
         modifier = modifier.then(Modifier.pointerInput(Unit) {
             detectTapGestures {
                 drawerState.value = false
-                Toast.makeText(context, "${UserEmailManager.userEmail.toString()}",Toast.LENGTH_SHORT).show()
+//                Toast.makeText(context, "${UserEmailManager.userEmail.toString()}",Toast.LENGTH_SHORT).show()
             }
         }),
         topBar = {

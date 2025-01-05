@@ -13,6 +13,7 @@ import com.example.wishlistapplication.screens.GetUserDetails
 import com.example.wishlistapplication.screens.HomeScreen
 import com.example.wishlistapplication.screens.LoginScreen
 import com.example.wishlistapplication.screens.SignUpScreen
+import com.example.wishlistapplication.screens.ThemeScreen
 import com.example.wishlistapplication.viewmodel.WishViewModel
 import com.example.wishlistapplication.viewmodel.firebase_auth_viewmodel
 import com.example.wishlistapplication.viewmodel.user_details_viewmodel
@@ -60,6 +61,10 @@ fun ScreensNavigations(modifier: Modifier,
             GetUserDetails(modifier = modifier,
                 navController = navController,
                 userDetailsViewmodel = userDetailsViewmodel)
+        }
+        composable(Routes.themeScreen){
+            ThemeScreen(modifier = modifier,
+                navController = navController)
         }
 
     }

@@ -7,4 +7,5 @@ object Routes {
     val addEditScreen = "AddEditScreen"
 
     val getUserDetails = "GetUserDetailsScreen"
+    val themeScreen = "ThemeScreen"
 }

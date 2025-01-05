@@ -94,7 +94,7 @@ fun Drawer_content(modifier: Modifier,
                     R.drawable.baseline_person_24,
                     "Profile Icon",
                     onDrawer_Item_Clicked = {
-
+                        navController.navigate(Routes.themeScreen)
                     })
                 Drawer_card(
                     "Categories",
