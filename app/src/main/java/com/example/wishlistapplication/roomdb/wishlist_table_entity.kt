@@ -21,5 +21,8 @@ data class wishlist_table_entity(
     var time : String,
 
     @ColumnInfo(name = "User_Token")
-    var userToken : String
+    var userToken : String,
+
+    @ColumnInfo(name = "Check_Box_State")
+    var checkBoxState : Boolean = false
 )

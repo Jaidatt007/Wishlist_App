@@ -135,10 +135,15 @@ fun HomeScreen(modifier: Modifier,
                         },
                         animationDuration = 500
                     ) {
-                        WishItem(wish = wish, onClick = {
-                            val id = wish.id
-                            navController.navigate(Routes.addEditScreen + "/${id}")
-                        })
+                        WishItem(wish = wish,
+                            onClick = {
+                                val id = wish.id
+                                navController.navigate(Routes.addEditScreen + "/${id}")
+                            },
+                            onCheckBoxClick = {
+                                wishViewModel.updateAWish(wish = wish.copy(checkBoxState = it))
+                            }
+                        )
                     }
                 }
             }

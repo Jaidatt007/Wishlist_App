@@ -38,6 +38,7 @@ import com.example.wishlistapplication.roomdb.wishlist_table_entity
 
 @Composable
 fun WishItem(wish : wishlist_table_entity,
+             onCheckBoxClick : (Boolean) -> Unit,
              onClick : () -> Unit ){
     Card(modifier = Modifier
         .fillMaxWidth()
@@ -52,16 +53,15 @@ fun WishItem(wish : wishlist_table_entity,
     ) {
 
         val context = LocalContext.current
-        var check_box_state by remember { mutableStateOf(false) }
 
         Row(modifier = Modifier.fillMaxWidth().wrapContentHeight()
             .background(MaterialTheme.colorScheme.tertiary),
             verticalAlignment = Alignment.CenterVertically) {
             Checkbox(modifier = Modifier.scale(0.8f),
-                checked = check_box_state,
+                checked = wish.checkBoxState,
                 onCheckedChange = {
-                    check_box_state = !check_box_state
-                    val text = if(check_box_state) "is Completed" else "is Pending"
+                    onCheckBoxClick(!wish.checkBoxState)
+                    val text = if(!wish.checkBoxState) "is Completed" else "is Pending"
                     Toast.makeText(context,"${wish.title} $text !", Toast.LENGTH_SHORT).show()
                 },
                 colors = CheckboxColors(
@@ -108,5 +108,5 @@ fun WishItem(wish : wishlist_table_entity,
 @Preview
 @Composable
 fun temp(){
-    WishItem(DummyData.wishList[0]) { }
+//    WishItem(DummyData.wishList[0]) { }
 }
