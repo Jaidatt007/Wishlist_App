@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -22,7 +23,9 @@ fun Floating_Action_Button(modifier: Modifier,
         onClick = {
             navController.navigate(Routes.addEditScreen + "/0L")
         },
-        elevation = FloatingActionButtonDefaults.elevation(4.dp)) {
+        elevation = FloatingActionButtonDefaults.elevation(4.dp),
+        containerColor = MaterialTheme.colorScheme.primary,
+        contentColor = MaterialTheme.colorScheme.onPrimary) {
         Icon(painter = painterResource(R.drawable.baseline_add_24),"Add Wish floating action button")
     }
 }

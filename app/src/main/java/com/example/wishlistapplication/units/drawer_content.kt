@@ -17,7 +17,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -59,7 +61,7 @@ fun Drawer_content(modifier: Modifier,
         }),
         shadowElevation = 8.dp) {
 
-        Box(modifier = Modifier.background(Color.Cyan)) {
+        Box(modifier = Modifier.background(MaterialTheme.colorScheme.secondary)) {
             Column(modifier = Modifier.fillMaxWidth().fillMaxHeight()) {
 
                 Row(
@@ -71,14 +73,17 @@ fun Drawer_content(modifier: Modifier,
                         modifier = Modifier.height(56.dp).width(56.dp)
                     )
                     Column {
-                        Text(text = "Welcome,", fontSize = 16.sp)
-                        Row {
+                        Text(text = "Welcome,", fontSize = 16.sp,
+                            color = MaterialTheme.colorScheme.onTertiary)
+                        Row(verticalAlignment = Alignment.Bottom) {
                             Text(
                                 text = if(userDetailsViewmodel.userName.value == null) "No Name" else userDetailsViewmodel.userName.value.toString(),
-                                fontSize = 20.sp, fontWeight = FontWeight.Bold,
-                                modifier = Modifier.padding(start = 32.dp)
+                                fontSize = 24.sp, fontWeight = FontWeight.Bold,
+                                modifier = Modifier.padding(start = 32.dp, end = 2.dp),
+                                color = MaterialTheme.colorScheme.onPrimary
                             )
-                            Text(text = ".......", fontSize = 20.sp)
+                            Text(text = ".......", fontSize = 20.sp,
+                                color = MaterialTheme.colorScheme.onTertiary)
                         }
                     }
                 }
@@ -146,7 +151,8 @@ fun Drawer_content(modifier: Modifier,
                             )
                         }
                         Toast.makeText(context, "Log Out", Toast.LENGTH_SHORT).show()
-                    }) {
+                    }
+                ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(text = "Log Out", modifier = Modifier.padding(end = 8.dp))
                         Icon(
@@ -166,14 +172,16 @@ fun Drawer_card(title:String, icon : Int, description:String , onDrawer_Item_Cli
         .padding(horizontal = 8.dp, vertical = 4.dp)
         .height(40.dp)
         .clip(RoundedCornerShape(8.dp))
-        .background(Color.Cyan)
-        .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
+        .background(MaterialTheme.colorScheme.background)
+        .border(1.dp, MaterialTheme.colorScheme.onBackground, RoundedCornerShape(8.dp))
         .clickable {
             onDrawer_Item_Clicked()
         },
         verticalAlignment = Alignment.CenterVertically) {
         Icon(painter = painterResource(icon),description,
-            modifier = Modifier.padding(start = 8.dp , end = 8.dp , top = 4.dp , bottom = 4.dp))
-        Text(text = title, modifier = Modifier.padding(4.dp), fontSize = 16.sp, fontWeight = FontWeight.Bold)
+            modifier = Modifier.padding(start = 8.dp , end = 8.dp , top = 4.dp , bottom = 4.dp),
+            tint = MaterialTheme.colorScheme.onBackground)
+        Text(text = title, modifier = Modifier.padding(4.dp), fontSize = 16.sp, fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.onBackground)
     }
 }

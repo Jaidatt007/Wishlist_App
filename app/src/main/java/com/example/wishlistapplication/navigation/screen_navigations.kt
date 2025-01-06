@@ -14,6 +14,7 @@ import com.example.wishlistapplication.screens.HomeScreen
 import com.example.wishlistapplication.screens.LoginScreen
 import com.example.wishlistapplication.screens.SignUpScreen
 import com.example.wishlistapplication.screens.ThemeScreen
+import com.example.wishlistapplication.viewmodel.ThemeViewModel
 import com.example.wishlistapplication.viewmodel.WishViewModel
 import com.example.wishlistapplication.viewmodel.firebase_auth_viewmodel
 import com.example.wishlistapplication.viewmodel.user_details_viewmodel
@@ -22,7 +23,8 @@ import com.example.wishlistapplication.viewmodel.user_details_viewmodel
 fun ScreensNavigations(modifier: Modifier,
                        authViewModel : firebase_auth_viewmodel,
                        wishViewModel: WishViewModel,
-                       userDetailsViewmodel: user_details_viewmodel
+                       userDetailsViewmodel: user_details_viewmodel,
+                       themeViewModel: ThemeViewModel
 ){
 
     val navController = rememberNavController()
@@ -64,7 +66,8 @@ fun ScreensNavigations(modifier: Modifier,
         }
         composable(Routes.themeScreen){
             ThemeScreen(modifier = modifier,
-                navController = navController)
+                navController = navController,
+                themeViewModel = themeViewModel)
         }
 
     }

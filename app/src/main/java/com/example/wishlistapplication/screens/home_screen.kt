@@ -7,6 +7,7 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -16,6 +17,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -26,6 +28,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -96,12 +99,13 @@ fun HomeScreen(modifier: Modifier,
 
     // Main screen content
     Scaffold(
-        modifier = modifier.then(Modifier.pointerInput(Unit) {
-            detectTapGestures {
-                drawerState.value = false
+        modifier = modifier.background(MaterialTheme.colorScheme.background)
+            .then(Modifier.pointerInput(Unit) {
+                detectTapGestures {
+                    drawerState.value = false
 //                Toast.makeText(context, "${UserEmailManager.userEmail.toString()}",Toast.LENGTH_SHORT).show()
-            }
-        }),
+                }
+            }),
         topBar = {
             Top_app_bar(title = "Wishlist App",
                 icon = Icons.Default.AccountBox,
@@ -116,9 +120,11 @@ fun HomeScreen(modifier: Modifier,
                 authViewModel = authViewModel)
         }
     ) {
-        Column(modifier = Modifier.padding(it)) {
+        Column(modifier = Modifier.padding(it)
+            .background(MaterialTheme.colorScheme.background)) {
             // Screen content
-            LazyColumn(modifier = Modifier.padding(start = 12.dp, end = 12.dp)) {
+            LazyColumn(modifier = Modifier.padding(start = 12.dp, end = 12.dp)
+                .background(MaterialTheme.colorScheme.background)) {
                 items(items = wishList.value,
                     key = {it.id} ){ wish->
                     SwipeToDeleteContainer(

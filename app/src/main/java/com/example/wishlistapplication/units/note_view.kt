@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -37,25 +38,26 @@ fun NoteView(noteList : List<String>,
         Box(
             modifier = Modifier
                 .clip(RoundedCornerShape(16.dp))
-                .border(2.dp, Color.Black, RoundedCornerShape(16.dp))
+                .border(2.dp, MaterialTheme.colorScheme.onBackground, RoundedCornerShape(16.dp))
                 .padding(4.dp)
                 .fillMaxWidth(0.77f)
-                .background(color = Color.Gray, shape = RoundedCornerShape(16.dp))
+                .background(color = MaterialTheme.colorScheme.secondary, shape = RoundedCornerShape(16.dp))
         ) {
             Column(modifier = Modifier.padding(8.dp)) {
                 Row(modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Absolute.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically) {
-                    Text(text = "Note :-", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color.Green)
+                    Text(text = "Note :-", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSecondary)
                     Icon(painter = painterResource(R.drawable.baseline_close_24),"Close Note",
                         modifier = Modifier.padding(end = 4.dp)
                             .clickable {
                                 onCloseClicked()
-                        })
+                        },
+                        tint = MaterialTheme.colorScheme.onSecondary)
                 }
                 LazyColumn(modifier = Modifier.padding(horizontal = 8.dp)) {
                     items(noteList) {
-                        Text(text = it, fontSize = 8.sp, modifier = Modifier.wrapContentHeight(), color = Color.White)
+                        Text(text = it, fontSize = 8.sp, modifier = Modifier.wrapContentHeight(), color = MaterialTheme.colorScheme.onBackground)
                     }
                 }
             }

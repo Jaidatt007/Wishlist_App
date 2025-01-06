@@ -63,6 +63,9 @@ dependencies {
     // Shared Preferences Data Store
     implementation(libs.androidx.datastore.preferences)
 
+    //load image from assets package
+    implementation(libs.coil.compose)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

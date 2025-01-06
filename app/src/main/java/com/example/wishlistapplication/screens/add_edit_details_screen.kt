@@ -10,7 +10,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -92,7 +94,8 @@ fun AddEditDetailsScreen(id:Long,
                     title=""
                     description=""
                     Toast.makeText(context,"Values Resetted !",Toast.LENGTH_SHORT).show()
-                }) {
+                }
+                ) {
                     Text(text = "Reset", fontSize = 16.sp, modifier = Modifier.padding(4.dp))
                     Icon(painter = painterResource(R.drawable.baseline_refresh_24), contentDescription = "Reset values",
                         modifier = Modifier.size(24.dp))
@@ -109,7 +112,8 @@ fun AddEditDetailsScreen(id:Long,
                     } else {
                         Toast.makeText(context,"Title cannot be empty !",Toast.LENGTH_SHORT).show()
                     }
-                }) {
+                }
+                ) {
                     Text(text = if(operationState == "Edit") "Edit Wish" else "Add Wish" , fontSize = 16.sp, modifier = Modifier.padding(4.dp))
                     Icon(painter = painterResource(R.drawable.baseline_edit_24),"Add/Edit data",
                         modifier = Modifier.size(22.dp))
