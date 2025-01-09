@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -22,6 +23,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -38,6 +40,7 @@ import androidx.navigation.NavController
 import com.example.wishlistapplication.R
 import com.example.wishlistapplication.routes.Routes
 import com.example.wishlistapplication.sharedpreferencesdatastore.saveUserPreferences
+import com.example.wishlistapplication.viewmodel.ThemeViewModel
 import com.example.wishlistapplication.viewmodel.firebase_auth_viewmodel
 import com.example.wishlistapplication.viewmodel.user_details_viewmodel
 import kotlinx.coroutines.launch
@@ -46,7 +49,8 @@ import kotlinx.coroutines.launch
 fun Drawer_content(modifier: Modifier,
                    navController: NavController,
                    authViewModel: firebase_auth_viewmodel,
-                   userDetailsViewmodel: user_details_viewmodel
+                   userDetailsViewmodel: user_details_viewmodel,
+                   themeViewModel: ThemeViewModel
 ){
 
     val context = LocalContext.current
@@ -68,10 +72,7 @@ fun Drawer_content(modifier: Modifier,
                     modifier = Modifier.fillMaxWidth().padding(top = 16.dp, bottom = 16.dp),
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    Icon(
-                        painter = painterResource(R.drawable.baseline_mood_24), "",
-                        modifier = Modifier.height(56.dp).width(56.dp)
-                    )
+                    DrawerEmoji(userDetailsViewmodel.userName.value, themeViewModel = themeViewModel)
                     Column {
                         Text(text = "Welcome,", fontSize = 16.sp,
                             color = MaterialTheme.colorScheme.onTertiary)
@@ -88,54 +89,86 @@ fun Drawer_content(modifier: Modifier,
                     }
                 }
                 Drawer_card(
-                    "Profile",
-                    R.drawable.baseline_person_24,
-                    "Profile Icon",
+                    title = "Profile",
+                    icon = R.drawable.baseline_person_24,
+                    description = "Profile",
+                    horizontalPaddingValue = 8,
                     onDrawer_Item_Clicked = {
                         navController.navigate(Routes.getUserDetails)
-                    })
+                    }
+                )
                 Drawer_card(
-                    "Theme",
-                    R.drawable.baseline_person_24,
-                    "Profile Icon",
+                    title = "Notifications",
+                    icon = R.drawable.baseline_notifications_24,
+                    description = "Notifications",
+                    horizontalPaddingValue = 8,
+                    onDrawer_Item_Clicked = {
+
+                    }
+                )
+                Drawer_card(
+                    title = "Theme",
+                    icon = R.drawable.baseline_color_lens_24,
+                    description = "Theme",
+                    horizontalPaddingValue = 8,
                     onDrawer_Item_Clicked = {
                         navController.navigate(Routes.themeScreen)
-                    })
+                    }
+                )
                 Drawer_card(
-                    "Categories",
-                    R.drawable.baseline_person_24,
-                    "Profile Icon",
+                    title = "Bin",
+                    icon = R.drawable.baseline_delete_24,
+                    description = "Bin",
+                    horizontalPaddingValue = 8,
                     onDrawer_Item_Clicked = {
 
-                    })
+                    }
+                )
                 Drawer_card(
-                    "Bin",
-                    R.drawable.baseline_person_24,
-                    "Profile Icon",
+                    title = "Settings",
+                    icon = R.drawable.baseline_settings_24,
+                    description = "Settings",
+                    horizontalPaddingValue = 8,
                     onDrawer_Item_Clicked = {
 
-                    })
+                    }
+                )
                 Drawer_card(
-                    "Settings",
-                    R.drawable.baseline_person_24,
-                    "Profile Icon",
+                    title = "FAQ",
+                    icon = R.drawable.baseline_question_answer_24,
+                    description = "FAQ",
+                    horizontalPaddingValue = 8,
                     onDrawer_Item_Clicked = {
 
-                    })
+                    }
+                )
                 Drawer_card(
-                    "FAQ",
-                    R.drawable.baseline_person_24,
-                    "Profile Icon",
+                    title = "Contact Us",
+                    icon = R.drawable.baseline_connect_without_contact_24,
+                    description = "Contact Us",
+                    horizontalPaddingValue = 8,
+                    onDrawer_Item_Clicked = {
+                        navController.navigate(Routes.contactUsScreen)
+                    }
+                )
+                Drawer_card(
+                    title = "Share",
+                    icon = R.drawable.baseline_share_24,
+                    description = "Share",
+                    horizontalPaddingValue = 40,
                     onDrawer_Item_Clicked = {
 
-                    })
+                    }
+                )
                 Drawer_card(
-                    "Contact Us",
-                    R.drawable.baseline_person_24,
-                    "Profile Icon",
+                    title = "Exit",
+                    icon = R.drawable.baseline_exit_to_app_24,
+                    description = "Exit",
+                    horizontalPaddingValue = 80,
                     onDrawer_Item_Clicked = {
 
-                    })
+                    }
+                )
 
                 Spacer(modifier = Modifier.weight(1f))
 
@@ -167,17 +200,22 @@ fun Drawer_content(modifier: Modifier,
 }
 
 @Composable
-fun Drawer_card(title:String, icon : Int, description:String , onDrawer_Item_Clicked : () -> Unit){
+fun Drawer_card(title:String,
+                icon : Int,
+                description:String ,
+                horizontalPaddingValue : Int,
+                onDrawer_Item_Clicked : () -> Unit){
     Row(modifier = Modifier.fillMaxWidth()
-        .padding(horizontal = 8.dp, vertical = 4.dp)
-        .height(40.dp)
+        .padding(horizontal = horizontalPaddingValue.dp, vertical = 4.dp)
+        .heightIn(min = 40.dp)
         .clip(RoundedCornerShape(8.dp))
         .background(MaterialTheme.colorScheme.background)
         .border(1.dp, MaterialTheme.colorScheme.onBackground, RoundedCornerShape(8.dp))
         .clickable {
             onDrawer_Item_Clicked()
         },
-        verticalAlignment = Alignment.CenterVertically) {
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = if(title == "Exit" || title == "Share") Arrangement.Center else Arrangement.Start)  {
         Icon(painter = painterResource(icon),description,
             modifier = Modifier.padding(start = 8.dp , end = 8.dp , top = 4.dp , bottom = 4.dp),
             tint = MaterialTheme.colorScheme.onBackground)

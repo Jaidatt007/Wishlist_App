@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -34,6 +33,7 @@ import androidx.navigation.NavController
 import com.example.wishlistapplication.R
 import com.example.wishlistapplication.resources.notes_ThemeScreen
 import com.example.wishlistapplication.resources.themeList
+import com.example.wishlistapplication.routes.Routes
 import com.example.wishlistapplication.units.NoteView
 import com.example.wishlistapplication.units.ThemeImageCard
 import com.example.wishlistapplication.units.ThemeRadioButton
@@ -64,9 +64,10 @@ fun ThemeScreen(modifier: Modifier,
         Scaffold(modifier = modifier,
             topBar = {
                 Top_app_bar(title = "Theme",
-                    icon = Icons.Default.ArrowBack,
+                    icon = R.drawable.baseline_arrow_back_24,
                     onIconClick = {
-                        navController.navigateUp()
+                        themeScreenState.value = false
+                        navController.navigate(Routes.homeScreen)
                     })
             }
         ) {

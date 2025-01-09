@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -27,7 +28,7 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun Top_app_bar(title : String,
-                icon : ImageVector,
+                icon : Int,
                 onIconClick : () -> Unit){
     Box(modifier = Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.primary)
         .fillMaxHeight(0.077f),
@@ -36,7 +37,7 @@ fun Top_app_bar(title : String,
         val context = LocalContext.current
 
         Row(modifier = Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp)) {
-            Icon(imageVector = icon, contentDescription = "Account Icon",
+            Icon(painter = painterResource(icon), contentDescription = "Account Icon",
                 modifier = Modifier.scale(1.4f).clickable{
 //                    Toast.makeText(context,"This is Account Icon !",Toast.LENGTH_SHORT).show()
                     onIconClick()

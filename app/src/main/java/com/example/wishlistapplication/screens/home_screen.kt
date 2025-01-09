@@ -15,8 +15,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -28,20 +26,22 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.wishlistapplication.R
 import com.example.wishlistapplication.resources.UserEmailManager
 import com.example.wishlistapplication.resources.UserTokenManager
 import com.example.wishlistapplication.routes.Routes
+import com.example.wishlistapplication.sharedpreferencesdatastore.readUserPreferences
 import com.example.wishlistapplication.units.Drawer_content
 import com.example.wishlistapplication.units.Floating_Action_Button
 import com.example.wishlistapplication.units.SwipeToDeleteContainer
 import com.example.wishlistapplication.units.Top_app_bar
 import com.example.wishlistapplication.units.WishItem
 import com.example.wishlistapplication.viewmodel.AuthState
+import com.example.wishlistapplication.viewmodel.ThemeViewModel
 import com.example.wishlistapplication.viewmodel.WishViewModel
 import com.example.wishlistapplication.viewmodel.firebase_auth_viewmodel
 import com.example.wishlistapplication.viewmodel.user_details_viewmodel
@@ -52,7 +52,8 @@ fun HomeScreen(modifier: Modifier,
                navController: NavController,
                authViewModel: firebase_auth_viewmodel,
                wishViewModel: WishViewModel,
-               userDetailsViewmodel: user_details_viewmodel
+               userDetailsViewmodel: user_details_viewmodel,
+               themeViewModel: ThemeViewModel
 ) {
 
     val drawerState = remember { mutableStateOf(false) }
@@ -74,6 +75,14 @@ fun HomeScreen(modifier: Modifier,
                 UserEmailManager.userEmail = authViewModel.userEmail.value
                 authViewModel.explicitCheckAuthStatus()
             }
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        readUserPreferences(context).collect { preferences ->
+            userDetailsViewmodel.setUserName(preferences.name)
+            userDetailsViewmodel.setUserContact(preferences.contact)
+            userDetailsViewmodel.setUserDescription(preferences.description)
         }
     }
 
@@ -108,7 +117,7 @@ fun HomeScreen(modifier: Modifier,
             }),
         topBar = {
             Top_app_bar(title = "Wishlist App",
-                icon = Icons.Default.AccountBox,
+                icon = R.drawable.baseline_account_box_24,
                 onIconClick = {
                     drawerState.value = true
                 }
@@ -165,7 +174,8 @@ fun HomeScreen(modifier: Modifier,
         Drawer_content(modifier = modifier,
             navController = navController,
             authViewModel = authViewModel,
-            userDetailsViewmodel = userDetailsViewmodel)
+            userDetailsViewmodel = userDetailsViewmodel,
+            themeViewModel = themeViewModel)
     }
 
 }

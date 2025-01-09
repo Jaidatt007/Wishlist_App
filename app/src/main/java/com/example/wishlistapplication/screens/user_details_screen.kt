@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
@@ -36,6 +35,7 @@ import androidx.navigation.NavController
 import com.example.wishlistapplication.R
 import com.example.wishlistapplication.resources.UserEmailManager
 import com.example.wishlistapplication.resources.notes_UserDetailsScreen
+import com.example.wishlistapplication.routes.Routes
 import com.example.wishlistapplication.sharedpreferencesdatastore.readUserPreferences
 import com.example.wishlistapplication.sharedpreferencesdatastore.saveUserPreferences
 import com.example.wishlistapplication.units.NoteView
@@ -86,10 +86,10 @@ fun GetUserDetails(modifier: Modifier,
         Scaffold(modifier = modifier,
             topBar = {
                 Top_app_bar(title = "Profile",
-                    icon = Icons.Default.ArrowBack,
+                    icon = R.drawable.baseline_arrow_back_24,
                     onIconClick = {
                         profileScreenState.value = false
-                        navController.navigateUp()
+                        navController.navigate(Routes.homeScreen)
                     })
             }
         ) {

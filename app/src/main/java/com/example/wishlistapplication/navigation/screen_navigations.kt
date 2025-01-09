@@ -9,6 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.wishlistapplication.routes.Routes
 import com.example.wishlistapplication.screens.AddEditDetailsScreen
+import com.example.wishlistapplication.screens.ContactUsScreen
 import com.example.wishlistapplication.screens.GetUserDetails
 import com.example.wishlistapplication.screens.HomeScreen
 import com.example.wishlistapplication.screens.LoginScreen
@@ -46,7 +47,8 @@ fun ScreensNavigations(modifier: Modifier,
                 navController = navController,
                 authViewModel = authViewModel,
                 wishViewModel = wishViewModel,
-                userDetailsViewmodel = userDetailsViewmodel)
+                userDetailsViewmodel = userDetailsViewmodel,
+                themeViewModel = themeViewModel)
         }
         composable(Routes.addEditScreen + "/{id}",
             arguments = listOf(navArgument("id"){
@@ -68,6 +70,10 @@ fun ScreensNavigations(modifier: Modifier,
             ThemeScreen(modifier = modifier,
                 navController = navController,
                 themeViewModel = themeViewModel)
+        }
+        composable(Routes.contactUsScreen){
+            ContactUsScreen(modifier = modifier,
+                navController = navController)
         }
 
     }

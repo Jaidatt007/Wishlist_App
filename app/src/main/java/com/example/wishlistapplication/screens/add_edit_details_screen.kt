@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Icon
@@ -32,6 +31,7 @@ import com.example.wishlistapplication.R
 import com.example.wishlistapplication.resources.UserTokenManager
 import com.example.wishlistapplication.resources.getCurrentDateTime
 import com.example.wishlistapplication.roomdb.wishlist_table_entity
+import com.example.wishlistapplication.routes.Routes
 import com.example.wishlistapplication.units.Top_app_bar
 import com.example.wishlistapplication.viewmodel.WishViewModel
 
@@ -63,9 +63,9 @@ fun AddEditDetailsScreen(id:Long,
     Scaffold(modifier = modifier,
         topBar = {
             Top_app_bar(title = if(operationState == "Edit") "Edit Wish" else "Add Wish",
-                icon = Icons.Default.ArrowBack,
+                icon = R.drawable.baseline_arrow_back_24 ,
                 onIconClick = {
-                    navController.navigateUp()
+                    navController.navigate(Routes.homeScreen)
                 })
         }
     ) { innerPadding->
