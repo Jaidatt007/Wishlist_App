@@ -50,7 +50,8 @@ fun Drawer_content(modifier: Modifier,
                    navController: NavController,
                    authViewModel: firebase_auth_viewmodel,
                    userDetailsViewmodel: user_details_viewmodel,
-                   themeViewModel: ThemeViewModel
+                   themeViewModel: ThemeViewModel,
+                   onExitClick : () -> Unit
 ){
 
     val context = LocalContext.current
@@ -166,7 +167,7 @@ fun Drawer_content(modifier: Modifier,
                     description = "Exit",
                     horizontalPaddingValue = 80,
                     onDrawer_Item_Clicked = {
-
+                        onExitClick()
                     }
                 )
 

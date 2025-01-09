@@ -53,7 +53,8 @@ fun HomeScreen(modifier: Modifier,
                authViewModel: firebase_auth_viewmodel,
                wishViewModel: WishViewModel,
                userDetailsViewmodel: user_details_viewmodel,
-               themeViewModel: ThemeViewModel
+               themeViewModel: ThemeViewModel,
+               onExitClick : () -> Unit
 ) {
 
     val drawerState = remember { mutableStateOf(false) }
@@ -174,7 +175,8 @@ fun HomeScreen(modifier: Modifier,
             navController = navController,
             authViewModel = authViewModel,
             userDetailsViewmodel = userDetailsViewmodel,
-            themeViewModel = themeViewModel)
+            themeViewModel = themeViewModel,
+            onExitClick = onExitClick)
     }
 
 }

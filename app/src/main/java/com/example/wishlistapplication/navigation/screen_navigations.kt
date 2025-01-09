@@ -25,7 +25,8 @@ fun ScreensNavigations(modifier: Modifier,
                        authViewModel : firebase_auth_viewmodel,
                        wishViewModel: WishViewModel,
                        userDetailsViewmodel: user_details_viewmodel,
-                       themeViewModel: ThemeViewModel
+                       themeViewModel: ThemeViewModel,
+                       onExitClick : () -> Unit
 ){
 
     val navController = rememberNavController()
@@ -48,7 +49,8 @@ fun ScreensNavigations(modifier: Modifier,
                 authViewModel = authViewModel,
                 wishViewModel = wishViewModel,
                 userDetailsViewmodel = userDetailsViewmodel,
-                themeViewModel = themeViewModel)
+                themeViewModel = themeViewModel,
+                onExitClick = onExitClick)
         }
         composable(Routes.addEditScreen + "/{id}",
             arguments = listOf(navArgument("id"){

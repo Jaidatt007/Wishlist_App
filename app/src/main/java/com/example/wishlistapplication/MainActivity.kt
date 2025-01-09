@@ -17,6 +17,7 @@ import com.example.wishlistapplication.viewmodel.ThemeViewModel
 import com.example.wishlistapplication.viewmodel.WishViewModel
 import com.example.wishlistapplication.viewmodel.firebase_auth_viewmodel
 import com.example.wishlistapplication.viewmodel.user_details_viewmodel
+import kotlin.system.exitProcess
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,15 +33,16 @@ class MainActivity : ComponentActivity() {
                 warmTheme = themeViewModel.radioButton2.observeAsState().value ?: false,
                 darkTheme = themeViewModel.radioButton3.observeAsState().value ?: false
             ) {
-                Log.d("ligth", "onCreate: ${themeViewModel.radioButton1.value}")
-                Log.d("warm", "onCreate: ${themeViewModel.radioButton2.value}")
-                Log.d("dark", "onCreate: ${themeViewModel.radioButton3.value}")
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     ScreensNavigations(modifier = Modifier.padding(innerPadding),
                         authViewModel = authViewModel,
                         wishViewModel = wishlistViewModel,
                         userDetailsViewmodel = userDetailsViewModel,
-                        themeViewModel = themeViewModel
+                        themeViewModel = themeViewModel,
+                        onExitClick = {
+                            finish()
+                            exitProcess(0)
+                        }
                     )
                 }
             }
