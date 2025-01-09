@@ -86,7 +86,6 @@ fun HomeScreen(modifier: Modifier,
         }
     }
 
-
     BackHandler {
         if (backPressedOnce) {
             // Close the app
