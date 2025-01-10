@@ -11,6 +11,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -129,10 +130,10 @@ fun HomeScreen(modifier: Modifier,
                 authViewModel = authViewModel)
         }
     ) {
-        Column(modifier = Modifier.padding(it)
+        Column(modifier = Modifier.padding(it).fillMaxSize()
             .background(MaterialTheme.colorScheme.background)) {
             // Screen content
-            LazyColumn(modifier = Modifier.padding(start = 12.dp, end = 12.dp)
+            LazyColumn(modifier = Modifier.padding(start = 12.dp, end = 12.dp).fillMaxWidth()
                 .background(MaterialTheme.colorScheme.background)) {
                 items(items = wishList.value,
                     key = {it.id} ){ wish->

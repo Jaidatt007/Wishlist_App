@@ -20,20 +20,16 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.wishlistapplication.resources.DummyData
 import com.example.wishlistapplication.roomdb.wishlist_table_entity
 
 @Composable
@@ -82,7 +78,7 @@ fun WishItem(wish : wishlist_table_entity,
             VerticalDivider(modifier = Modifier.height(32.dp),
                 thickness = 1.dp,
                 color = MaterialTheme.colorScheme.onTertiary.copy(alpha = 0.3f))
-            Column(modifier = Modifier.padding(start = 16.dp, end = 8.dp)) {
+            Column(modifier = Modifier.padding(start = 16.dp, end = 8.dp).fillMaxWidth()) {
                 Row(
                     modifier = Modifier.fillMaxWidth().padding(top = 3.dp),
                     verticalAlignment = Alignment.Top,
@@ -92,10 +88,14 @@ fun WishItem(wish : wishlist_table_entity,
                         fontWeight = FontWeight.ExtraBold,
                         overflow = TextOverflow.Ellipsis,
                         softWrap = false,
-                        modifier = Modifier.fillMaxWidth(0.7f),
-                        color = MaterialTheme.colorScheme.onTertiary)
+                        modifier = Modifier.fillMaxWidth(0.6f),
+                        color = MaterialTheme.colorScheme.onTertiary,
+                        maxLines = 1)
                     Text(text = wish.time, fontSize = 10.sp,
-                        color = MaterialTheme.colorScheme.onTertiary.copy(alpha = 0.7f))
+                        modifier = Modifier.fillMaxWidth(1f),
+                        textAlign = TextAlign.End,
+                        color = MaterialTheme.colorScheme.onTertiary.copy(alpha = 0.7f),
+                        maxLines = 1)
                 }
                 Text(text = wish.description , fontSize = 14.sp,
                     modifier = Modifier.padding(bottom = 2.dp),
@@ -103,10 +103,4 @@ fun WishItem(wish : wishlist_table_entity,
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun temp(){
-//    WishItem(DummyData.wishList[0]) { }
 }
