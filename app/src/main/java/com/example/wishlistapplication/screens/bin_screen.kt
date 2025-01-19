@@ -15,13 +15,20 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.wishlistapplication.R
+import com.example.wishlistapplication.resources.notes_BinScreen
+import com.example.wishlistapplication.roomdb.wishlist_bin_entity
+import com.example.wishlistapplication.roomdb.wishlist_table_entity
 import com.example.wishlistapplication.routes.Routes
+import com.example.wishlistapplication.units.BinDialogBox
+import com.example.wishlistapplication.units.NoteView
 import com.example.wishlistapplication.units.Top_app_bar
 import com.example.wishlistapplication.units.WishBinItem
 import com.example.wishlistapplication.viewmodel.WishBinViewModel
@@ -38,7 +45,11 @@ fun Bin_Screen(modifier: Modifier,
 
     val wishBinList = wishBinViewModel.getAllBinWishes().collectAsState(initial = listOf())
 
-    val alertDialogState = remember { mutableStateOf(false) }
+    val dialogState = remember { mutableStateOf(false) }
+
+    val wishOnDialogBox = remember { mutableStateOf(wishlist_bin_entity(id = 0, title = "", description = "", time = "", userToken = "", checkBoxState = false)) }
+
+    var noteState by remember { mutableStateOf(true) }
 
     AnimatedVisibility(
         modifier = Modifier.fillMaxWidth()
@@ -68,11 +79,25 @@ fun Bin_Screen(modifier: Modifier,
                     .background(MaterialTheme.colorScheme.background)) {
                     items(items = wishBinList.value, key = {it.id}){ wish->
                         WishBinItem(wish = wish, onClick = {
-                            wishBinViewModel.deleteABinWish(wishId = wish.id)
+                            wishOnDialogBox.value = wish
+                            dialogState.value = true
                         })
                     }
                 }
             }
+            BinDialogBox(dialogState = dialogState, wish = wishOnDialogBox.value,
+                onDeleteClick = {
+                    wishBinViewModel.deleteABinWish(wishId = wishOnDialogBox.value.id)
+                    dialogState.value = false
+                },
+                onRestoreClick = {
+                    wishViewModel.addAWish(wish = wishlist_table_entity(id = wishOnDialogBox.value.id, title = wishOnDialogBox.value.title, description = wishOnDialogBox.value.description, time = wishOnDialogBox.value.time, userToken = wishOnDialogBox.value.userToken, checkBoxState = wishOnDialogBox.value.checkBoxState))
+                    wishBinViewModel.deleteABinWish(wishId = wishOnDialogBox.value.id)
+                    dialogState.value = false
+                })
+            if (noteState) NoteView(
+                noteList = notes_BinScreen,
+                onCloseClicked = { noteState = false })
         }
     }
 }
