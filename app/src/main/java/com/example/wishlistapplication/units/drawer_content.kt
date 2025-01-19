@@ -122,7 +122,7 @@ fun Drawer_content(modifier: Modifier,
                     description = "Bin",
                     horizontalPaddingValue = 8,
                     onDrawer_Item_Clicked = {
-
+                        navController.navigate(Routes.binScreen)
                     }
                 )
                 Drawer_card(

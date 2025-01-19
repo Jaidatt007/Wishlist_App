@@ -9,6 +9,11 @@ object wishlist_graph {
     val wishRepository by lazy {
         WishRepository(wishDao = database.wishDao())
     }
+
+    val wishBinRepository by lazy {
+        WishBinRepository(wishBinDao = database.wishBinDao())
+    }
+
     fun provide(context: Context){
         database = Room.databaseBuilder(context,
             WishDatabase::class.java,

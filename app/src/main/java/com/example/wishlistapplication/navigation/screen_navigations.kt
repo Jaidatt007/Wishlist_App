@@ -9,12 +9,14 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.wishlistapplication.routes.Routes
 import com.example.wishlistapplication.screens.AddEditDetailsScreen
+import com.example.wishlistapplication.screens.Bin_Screen
 import com.example.wishlistapplication.screens.ContactUsScreen
 import com.example.wishlistapplication.screens.GetUserDetails
 import com.example.wishlistapplication.screens.HomeScreen
 import com.example.wishlistapplication.screens.LoginScreen
 import com.example.wishlistapplication.screens.SignUpScreen
 import com.example.wishlistapplication.screens.ThemeScreen
+import com.example.wishlistapplication.viewmodel.WishBinViewModel
 import com.example.wishlistapplication.viewmodel.ThemeViewModel
 import com.example.wishlistapplication.viewmodel.WishViewModel
 import com.example.wishlistapplication.viewmodel.firebase_auth_viewmodel
@@ -26,6 +28,7 @@ fun ScreensNavigations(modifier: Modifier,
                        wishViewModel: WishViewModel,
                        userDetailsViewmodel: user_details_viewmodel,
                        themeViewModel: ThemeViewModel,
+                       wishBinViewModel : WishBinViewModel,
                        onExitClick : () -> Unit
 ){
 
@@ -50,6 +53,7 @@ fun ScreensNavigations(modifier: Modifier,
                 wishViewModel = wishViewModel,
                 userDetailsViewmodel = userDetailsViewmodel,
                 themeViewModel = themeViewModel,
+                wishBinViewModel = wishBinViewModel,
                 onExitClick = onExitClick)
         }
         composable(Routes.addEditScreen + "/{id}",
@@ -76,6 +80,12 @@ fun ScreensNavigations(modifier: Modifier,
         composable(Routes.contactUsScreen){
             ContactUsScreen(modifier = modifier,
                 navController = navController)
+        }
+        composable(Routes.binScreen){
+            Bin_Screen(modifier = modifier,
+                navController = navController,
+                wishViewModel = wishViewModel,
+                wishBinViewModel = wishBinViewModel)
         }
 
     }

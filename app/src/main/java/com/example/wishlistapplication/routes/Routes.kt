@@ -9,4 +9,5 @@ object Routes {
     val getUserDetails = "GetUserDetailsScreen"
     val themeScreen = "ThemeScreen"
     val contactUsScreen = "ContactUsScreen"
+    val binScreen = "BinScreen"
 }

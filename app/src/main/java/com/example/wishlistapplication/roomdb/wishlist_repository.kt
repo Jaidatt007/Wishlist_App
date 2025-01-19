@@ -15,6 +15,7 @@ class WishRepository(
         wishDao.updateWish(wishEntity = wish)
     }
     fun getAllWishes(userToken : String) : Flow<List<wishlist_table_entity>> = wishDao.getAllWishes(userToken = userToken)
+
     fun getAWishById(id:Long) : Flow<wishlist_table_entity> {
         return wishDao.getWishById(id)
     }

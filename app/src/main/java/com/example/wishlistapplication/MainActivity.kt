@@ -1,7 +1,6 @@
 package com.example.wishlistapplication
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -14,6 +13,7 @@ import androidx.compose.ui.Modifier
 import com.example.wishlistapplication.navigation.ScreensNavigations
 import com.example.wishlistapplication.ui.theme.WishlistApplicationTheme
 import com.example.wishlistapplication.viewmodel.ThemeViewModel
+import com.example.wishlistapplication.viewmodel.WishBinViewModel
 import com.example.wishlistapplication.viewmodel.WishViewModel
 import com.example.wishlistapplication.viewmodel.firebase_auth_viewmodel
 import com.example.wishlistapplication.viewmodel.user_details_viewmodel
@@ -27,6 +27,7 @@ class MainActivity : ComponentActivity() {
         val wishlistViewModel : WishViewModel by viewModels()
         val userDetailsViewModel : user_details_viewmodel by viewModels()
         val themeViewModel : ThemeViewModel by viewModels()
+        val wishBinViewModel : WishBinViewModel by viewModels()
         setContent {
             WishlistApplicationTheme(
                 lightTheme = themeViewModel.radioButton1.observeAsState().value ?: false,
@@ -39,6 +40,7 @@ class MainActivity : ComponentActivity() {
                         wishViewModel = wishlistViewModel,
                         userDetailsViewmodel = userDetailsViewModel,
                         themeViewModel = themeViewModel,
+                        wishBinViewModel = wishBinViewModel,
                         onExitClick = {
                             finish()
                             exitProcess(0)

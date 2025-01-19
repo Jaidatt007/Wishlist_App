@@ -34,6 +34,7 @@ import androidx.navigation.NavController
 import com.example.wishlistapplication.R
 import com.example.wishlistapplication.resources.UserEmailManager
 import com.example.wishlistapplication.resources.UserTokenManager
+import com.example.wishlistapplication.roomdb.wishlist_bin_entity
 import com.example.wishlistapplication.routes.Routes
 import com.example.wishlistapplication.sharedpreferencesdatastore.readUserPreferences
 import com.example.wishlistapplication.units.Drawer_content
@@ -42,6 +43,7 @@ import com.example.wishlistapplication.units.SwipeToDeleteContainer
 import com.example.wishlistapplication.units.Top_app_bar
 import com.example.wishlistapplication.units.WishItem
 import com.example.wishlistapplication.viewmodel.AuthState
+import com.example.wishlistapplication.viewmodel.WishBinViewModel
 import com.example.wishlistapplication.viewmodel.ThemeViewModel
 import com.example.wishlistapplication.viewmodel.WishViewModel
 import com.example.wishlistapplication.viewmodel.firebase_auth_viewmodel
@@ -55,6 +57,7 @@ fun HomeScreen(modifier: Modifier,
                wishViewModel: WishViewModel,
                userDetailsViewmodel: user_details_viewmodel,
                themeViewModel: ThemeViewModel,
+               wishBinViewModel : WishBinViewModel,
                onExitClick : () -> Unit
 ) {
 
@@ -140,6 +143,7 @@ fun HomeScreen(modifier: Modifier,
                     SwipeToDeleteContainer(
                         item = wish,
                         onDelete = {
+                            wishBinViewModel.addABinWish(wish = wishlist_bin_entity(title = wish.title, description = wish.description, time = wish.time, userToken = wish.userToken, checkBoxState = wish.checkBoxState))
                             wishViewModel.deleteAWish(wishId = it.id)
                             Log.d("Deleting","Tried to delete !")
                         },
