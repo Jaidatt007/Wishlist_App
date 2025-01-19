@@ -49,10 +49,14 @@ fun WishBinItem(wish : wishlist_bin_entity,
                     verticalAlignment = Alignment.Top,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text(text = "Title : ")
-                    Text(text = wish.title, fontSize = 18.sp ,
+                    Text(text = "Title : ", fontSize = 18.sp ,
+                        modifier = Modifier,
                         fontWeight = FontWeight.ExtraBold,
+                        textAlign = TextAlign.Start,
+                        color = MaterialTheme.colorScheme.onTertiary)
+                    Text(text = wish.title, fontSize = 16.sp,
                         overflow = TextOverflow.Ellipsis,
+                        textAlign = TextAlign.Start,
                         softWrap = false,
                         modifier = Modifier.fillMaxWidth(0.6f),
                         color = MaterialTheme.colorScheme.onTertiary,
@@ -63,12 +67,15 @@ fun WishBinItem(wish : wishlist_bin_entity,
                         color = MaterialTheme.colorScheme.onTertiary.copy(alpha = 0.7f),
                         maxLines = 1)
                 }
-                Row {
-                    Text(text = "Desc. : ")
+                Row(verticalAlignment = Alignment.Top) {
+                    Text(text = "Desc : ", fontSize = 18.sp ,
+                        fontWeight = FontWeight.ExtraBold,
+                        textAlign = TextAlign.Start,
+                        color = MaterialTheme.colorScheme.onTertiary)
                     Text(text = wish.description , fontSize = 14.sp,
                         modifier = Modifier.padding(bottom = 2.dp),
-                        fontWeight = FontWeight.Bold,
                         overflow = TextOverflow.Ellipsis,
+                        textAlign = TextAlign.Start,
                         softWrap = true,
                         color = MaterialTheme.colorScheme.onTertiary)
                 }
