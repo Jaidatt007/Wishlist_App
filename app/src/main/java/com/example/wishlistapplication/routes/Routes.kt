@@ -10,4 +10,6 @@ object Routes {
     val themeScreen = "ThemeScreen"
     val contactUsScreen = "ContactUsScreen"
     val binScreen = "BinScreen"
+    val faqScreen = "FAQScreen"
+    val notificationScreen = "NotificationScreen"
 }

@@ -11,9 +11,11 @@ import com.example.wishlistapplication.routes.Routes
 import com.example.wishlistapplication.screens.AddEditDetailsScreen
 import com.example.wishlistapplication.screens.Bin_Screen
 import com.example.wishlistapplication.screens.ContactUsScreen
+import com.example.wishlistapplication.screens.FAQ_Screen
 import com.example.wishlistapplication.screens.GetUserDetails
 import com.example.wishlistapplication.screens.HomeScreen
 import com.example.wishlistapplication.screens.LoginScreen
+import com.example.wishlistapplication.screens.Notifications_Screen
 import com.example.wishlistapplication.screens.SignUpScreen
 import com.example.wishlistapplication.screens.ThemeScreen
 import com.example.wishlistapplication.viewmodel.WishBinViewModel
@@ -86,6 +88,14 @@ fun ScreensNavigations(modifier: Modifier,
                 navController = navController,
                 wishViewModel = wishViewModel,
                 wishBinViewModel = wishBinViewModel)
+        }
+        composable(Routes.faqScreen){
+            FAQ_Screen(modifier = modifier,
+                navController = navController)
+        }
+        composable(Routes.notificationScreen){
+            Notifications_Screen(modifier = modifier,
+                navController = navController)
         }
 
     }

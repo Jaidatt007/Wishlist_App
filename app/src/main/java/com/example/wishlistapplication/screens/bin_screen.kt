@@ -91,7 +91,7 @@ fun Bin_Screen(modifier: Modifier,
                     dialogState.value = false
                 },
                 onRestoreClick = {
-                    wishViewModel.addAWish(wish = wishlist_table_entity(id = wishOnDialogBox.value.id, title = wishOnDialogBox.value.title, description = wishOnDialogBox.value.description, time = wishOnDialogBox.value.time, userToken = wishOnDialogBox.value.userToken, checkBoxState = wishOnDialogBox.value.checkBoxState))
+                    wishViewModel.addAWish(wish = wishlist_table_entity(title = wishOnDialogBox.value.title, description = wishOnDialogBox.value.description, time = wishOnDialogBox.value.time, userToken = wishOnDialogBox.value.userToken, checkBoxState = wishOnDialogBox.value.checkBoxState))
                     wishBinViewModel.deleteABinWish(wishId = wishOnDialogBox.value.id)
                     dialogState.value = false
                 })
