@@ -38,10 +38,10 @@ fun BinDialogBox(dialogState:MutableState<Boolean>,
                  wish:wishlist_bin_entity,
                  onDeleteClick : () -> Unit,
                  onRestoreClick : () -> Unit) {
-    if(dialogState.value) {
+    if (dialogState.value) {
         Surface(
             modifier = Modifier.fillMaxSize()
-                .pointerInput(Unit){
+                .pointerInput(Unit) {
                     detectTapGestures {
                         dialogState.value = false
                     }
@@ -53,13 +53,14 @@ fun BinDialogBox(dialogState:MutableState<Boolean>,
                 contentAlignment = Alignment.Center
             ) {
                 Box(
+                    modifier = Modifier.fillMaxWidth(0.7f).fillMaxHeight(0.22f)
                         .clip(shape = RoundedCornerShape(16.dp))
                         .border(
                             BorderStroke(2.dp, MaterialTheme.colorScheme.onSecondary),
                             shape = RoundedCornerShape(16.dp)
                         )
                         .background(MaterialTheme.colorScheme.secondary)
-                        .pointerInput(Unit){
+                        .pointerInput(Unit) {
                             detectTapGestures {
                             }
                         }
@@ -118,6 +119,10 @@ fun BinDialogBox(dialogState:MutableState<Boolean>,
                             }
                         }
                         Spacer(modifier = Modifier.height(8.dp))
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.Center
+                        ) {
                             Button(modifier = Modifier.padding(4.dp)
                                 .height(42.dp).fillMaxWidth(0.46f),
                                 onClick = {
