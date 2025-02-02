@@ -31,6 +31,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.wishlistapplication.resources.getTimeFromMillis
 import com.example.wishlistapplication.roomdb.wishlist_bin_entity
 
 @Composable
@@ -74,7 +75,7 @@ fun BinDialogBox(dialogState:MutableState<Boolean>,
                             horizontalArrangement = Arrangement.Center
                         ) {
                             Text(
-                                text = wish.time, fontSize = 12.sp, textAlign = TextAlign.Center,
+                                text = getTimeFromMillis(wish.time), fontSize = 12.sp, textAlign = TextAlign.Center,
                                 color = MaterialTheme.colorScheme.onTertiary
                             )
                         }

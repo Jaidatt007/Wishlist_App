@@ -29,6 +29,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.wishlistapplication.resources.getTimeFromMillis
 import com.example.wishlistapplication.roomdb.wishlist_table_entity
 
 @Composable
@@ -90,7 +91,7 @@ fun WishItem(wish : wishlist_table_entity,
                         modifier = Modifier.fillMaxWidth(0.6f),
                         color = MaterialTheme.colorScheme.onTertiary,
                         maxLines = 1)
-                    Text(text = wish.time, fontSize = 10.sp,
+                    Text(text =  getTimeFromMillis(wish.time), fontSize = 10.sp,
                         modifier = Modifier.fillMaxWidth(1f),
                         textAlign = TextAlign.End,
                         color = MaterialTheme.colorScheme.onTertiary.copy(alpha = 0.7f),

@@ -18,8 +18,8 @@ import com.example.wishlistapplication.screens.LoginScreen
 import com.example.wishlistapplication.screens.Notifications_Screen
 import com.example.wishlistapplication.screens.SignUpScreen
 import com.example.wishlistapplication.screens.ThemeScreen
-import com.example.wishlistapplication.viewmodel.WishBinViewModel
 import com.example.wishlistapplication.viewmodel.ThemeViewModel
+import com.example.wishlistapplication.viewmodel.WishBinViewModel
 import com.example.wishlistapplication.viewmodel.WishViewModel
 import com.example.wishlistapplication.viewmodel.firebase_auth_viewmodel
 import com.example.wishlistapplication.viewmodel.user_details_viewmodel

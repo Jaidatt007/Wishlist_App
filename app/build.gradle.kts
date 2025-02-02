@@ -66,6 +66,10 @@ dependencies {
     //load image from assets package
     implementation(libs.coil.compose)
 
+    //material 3
+    implementation(libs.material3)
+
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

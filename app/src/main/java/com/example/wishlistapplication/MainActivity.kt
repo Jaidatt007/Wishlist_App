@@ -12,7 +12,6 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import com.example.wishlistapplication.navigation.ScreensNavigations
 import com.example.wishlistapplication.ui.theme.WishlistApplicationTheme
-import com.example.wishlistapplication.units.FAQ_Unit
 import com.example.wishlistapplication.viewmodel.ThemeViewModel
 import com.example.wishlistapplication.viewmodel.WishBinViewModel
 import com.example.wishlistapplication.viewmodel.WishViewModel

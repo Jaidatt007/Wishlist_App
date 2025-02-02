@@ -43,8 +43,8 @@ import com.example.wishlistapplication.units.SwipeToDeleteContainer
 import com.example.wishlistapplication.units.Top_app_bar
 import com.example.wishlistapplication.units.WishItem
 import com.example.wishlistapplication.viewmodel.AuthState
-import com.example.wishlistapplication.viewmodel.WishBinViewModel
 import com.example.wishlistapplication.viewmodel.ThemeViewModel
+import com.example.wishlistapplication.viewmodel.WishBinViewModel
 import com.example.wishlistapplication.viewmodel.WishViewModel
 import com.example.wishlistapplication.viewmodel.firebase_auth_viewmodel
 import com.example.wishlistapplication.viewmodel.user_details_viewmodel

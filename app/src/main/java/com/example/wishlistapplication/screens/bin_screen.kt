@@ -47,7 +47,7 @@ fun Bin_Screen(modifier: Modifier,
 
     val dialogState = remember { mutableStateOf(false) }
 
-    val wishOnDialogBox = remember { mutableStateOf(wishlist_bin_entity(id = 0, title = "", description = "", time = "", userToken = "", checkBoxState = false)) }
+    val wishOnDialogBox = remember { mutableStateOf(wishlist_bin_entity(id = 0, title = "", description = "", time = 0 , userToken = "", checkBoxState = false)) }
 
     var noteState by remember { mutableStateOf(true) }
 

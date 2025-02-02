@@ -20,7 +20,7 @@ abstract class WishDao {
     @Update
     abstract fun updateWish(wishEntity: wishlist_table_entity)
 
-    @Query("SELECT * FROM `Wishlist_Table` WHERE User_Token = :userToken")
+    @Query("SELECT * FROM `Wishlist_Table` WHERE User_Token = :userToken ORDER BY Wish_Created_Time ASC")
     abstract fun getAllWishes(userToken : String) : Flow<List<wishlist_table_entity>>
 
     @Query("SELECT * FROM `Wishlist_Table` WHERE ID = :id")
