@@ -1,5 +1,7 @@
 package com.example.wishlistapplication.resources
 
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.TimePickerState
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -158,4 +160,34 @@ fun extractTime(dateTimeStr: String?): String {
             "Invalid Time"
         }
     } ?: "Invalid Time"
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+fun getTimeInMillisFromTimePickerState(timePickerState: TimePickerState): Long {
+    val calendar = Calendar.getInstance().apply {
+        set(Calendar.HOUR_OF_DAY, timePickerState.hour)
+        set(Calendar.MINUTE, timePickerState.minute)
+        set(Calendar.SECOND, 0)
+        set(Calendar.MILLISECOND, 0)
+    }
+    return calendar.timeInMillis
+}
+
+fun getTimeDifferenceInMillisForAlarm(timeString: String): Long {
+    val dateFormat = SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault())
+    dateFormat.timeZone = TimeZone.getDefault()
+
+    return try {
+        val givenDate = dateFormat.parse(timeString)
+        val currentDate = Calendar.getInstance().time
+
+        if (givenDate != null) {
+            givenDate.time - currentDate.time
+        } else {
+            -1L  // Return -1 in case of parsing failure
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+        -1L  // Return -1 in case of an error
+    }
 }

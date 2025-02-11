@@ -1,5 +1,6 @@
 package com.example.wishlistapplication.navigation
 
+import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavType
@@ -31,7 +32,8 @@ fun ScreensNavigations(modifier: Modifier,
                        userDetailsViewmodel: user_details_viewmodel,
                        themeViewModel: ThemeViewModel,
                        wishBinViewModel : WishBinViewModel,
-                       onExitClick : () -> Unit
+                       onExitClick : () -> Unit,
+                       alarmContext : Context
 ){
 
     val navController = rememberNavController()
@@ -67,7 +69,8 @@ fun ScreensNavigations(modifier: Modifier,
             AddEditDetailsScreen(id = id,
                 modifier = modifier,
                 navController = navController,
-                wishViewModel = wishViewModel)
+                wishViewModel = wishViewModel,
+                alarmContext = alarmContext)
         }
         composable(Routes.getUserDetails){
             GetUserDetails(modifier = modifier,

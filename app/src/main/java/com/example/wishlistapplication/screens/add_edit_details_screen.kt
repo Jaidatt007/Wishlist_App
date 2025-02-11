@@ -1,5 +1,7 @@
 package com.example.wishlistapplication.screens
 
+import AlarmScheduler
+import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
@@ -64,7 +66,9 @@ import com.example.wishlistapplication.resources.getCurrentHourFromMillis
 import com.example.wishlistapplication.resources.getCurrentMinuteFromMillis
 import com.example.wishlistapplication.resources.getDateAndTimeString
 import com.example.wishlistapplication.resources.getMillisecondsDifference
+import com.example.wishlistapplication.resources.getTimeDifferenceInMillisForAlarm
 import com.example.wishlistapplication.resources.getTimeInFuture
+import com.example.wishlistapplication.resources.getTimeInMillisFromTimePickerState
 import com.example.wishlistapplication.resources.getTimerAfterAddingMinutes
 import com.example.wishlistapplication.roomdb.wishlist_table_entity
 import com.example.wishlistapplication.routes.Routes
@@ -79,7 +83,8 @@ import java.util.Locale
 fun AddEditDetailsScreen(id:Long,
                          modifier: Modifier,
                          navController: NavController,
-                         wishViewModel: WishViewModel
+                         wishViewModel: WishViewModel,
+                         alarmContext : Context
 ){
 
     var title by remember { mutableStateOf("") }
@@ -102,6 +107,8 @@ fun AddEditDetailsScreen(id:Long,
     )
 
     val inputFormat = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+
+    val alarmScheduler = AlarmScheduler(alarmContext)
 
     var setReminderState by remember { mutableStateOf(false) }
 
@@ -239,16 +246,26 @@ fun AddEditDetailsScreen(id:Long,
                 }
                 Button(onClick = {
                     if(title.isNotEmpty()){
+                        val reminderDateAndTime = getDateAndTimeString(selectedDateState,selectedTimeState)
+                        val alarmInMillis = getTimeDifferenceInMillisForAlarm(reminderDateAndTime)
                         if(operationState == "Add"){
                             wishViewModel.addAWish(wish = wishlist_table_entity(title = title, description = description,
                                 time = currentTimeMillis , userToken = UserTokenManager.userToken.toString(),
-                                reminderTime = if(setReminderState) getDateAndTimeString(selectedDateState,selectedTimeState) else ""
+                                reminderTime = if(setReminderState) reminderDateAndTime else ""
                             ))
-                            Log.d("Time to Millis","${getDateAndTimeString(selectedDateState,selectedTimeState)} in Millis are = ${getMillisecondsDifference(getDateAndTimeString(selectedDateState,selectedTimeState))}")
+                            if(setReminderState){
+                                alarmScheduler.setAlarm(alarmInMillis)
+                                Log.d("Alarm at : ","$alarmInMillis")
+                            }
                         } else {
                             wishViewModel.updateAWish(wishlist_table_entity(id = id, title = title, description = description,
                                 time = currentTimeMillis , userToken = UserTokenManager.userToken.toString(),
-                                reminderTime = if(setReminderState) getDateAndTimeString(selectedDateState,selectedTimeState) else ""))
+                                reminderTime = if(setReminderState) reminderDateAndTime else ""
+                            ))
+                            if(setReminderState){
+                                alarmScheduler.setAlarm(alarmInMillis)
+                                Log.d("Alarm at : ","$alarmInMillis")
+                            }
                         }
                         navController.navigateUp()
                         Toast.makeText(context,if(operationState == "Edit") "Wish Updated !" else "Wish Added !",Toast.LENGTH_SHORT).show()
@@ -319,21 +336,13 @@ fun AddEditDetailsScreen(id:Long,
                                 Text(text = "Cancel")
                             }
                             TextButton(onClick = {
-                                val currentTimeMillis = System.currentTimeMillis()
-                                val selectedHour = timePickerState.hour
-                                val selectedMinute = timePickerState.minute
-                                val calendar = Calendar.getInstance()
-                                calendar.set(Calendar.HOUR_OF_DAY, selectedHour)
-                                calendar.set(Calendar.MINUTE, selectedMinute)
-                                calendar.set(Calendar.SECOND, 0)
-                                calendar.set(Calendar.MILLISECOND, 0)
 
-                                val selectedMillis = calendar.timeInMillis
+                                val selectedMillis = getTimeInMillisFromTimePickerState(timePickerState = timePickerState)
 
                                 if (selectedMillis >= currentTimeMillis) {
-                                    val formattedHour = if (selectedHour % 12 == 0) 12 else selectedHour % 12
-                                    val formattedMinute = String.format("%02d", selectedMinute)
-                                    val amPm = if (selectedHour >= 12) "PM" else "AM"
+                                    val formattedHour = if (timePickerState.hour % 12 == 0) 12 else timePickerState.hour % 12
+                                    val formattedMinute = String.format("%02d", timePickerState.minute)
+                                    val amPm = if (timePickerState.hour >= 12) "PM" else "AM"
 
                                     val timeInStr = "$formattedHour:$formattedMinute $amPm"
                                     selectedTimeState = timeInStr

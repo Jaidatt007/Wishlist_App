@@ -4,6 +4,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.widget.Toast
 import kotlin.random.Random
 
@@ -20,9 +21,10 @@ class AlarmScheduler(private val context: Context) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmManager.setExactAndAllowWhileIdle(
             AlarmManager.RTC_WAKEUP,
-            timeInMillis,
+            System.currentTimeMillis() + timeInMillis,
             pendingIntent
         )
+        Log.d("Alarm time: ","$timeInMillis")
 
         Toast.makeText(context, "Alarm set!", Toast.LENGTH_SHORT).show()
     }

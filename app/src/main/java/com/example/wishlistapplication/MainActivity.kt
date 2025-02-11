@@ -44,7 +44,8 @@ class MainActivity : ComponentActivity() {
                         onExitClick = {
                             finish()
                             exitProcess(0)
-                        }
+                        },
+                        alarmContext = this
                     )
                 }
             }
